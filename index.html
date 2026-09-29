@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>مختبر افتراضي: ما أجزاء البذرة؟</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#eaf3f8;--card:#fff;--ink:#17323f;--mute:#557383;--sky:#2b7ba5;--green:#7fae2f;--sun:#f2c12e;--line:#c9dce7;--ok:#1f7a4a;--okbg:#dff3e6;--bad:#b3261e;--badbg:#fbe3e0;--view:#f4f8fb}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1f28;--card:#172b36;--ink:#e6f1f6;--mute:#93b0bf;--line:#2c4655;--sky:#5db4e0;--ok:#6fd39b;--okbg:#17392a;--bad:#f28b82;--badbg:#3f1f1d;--view:#20394a}}
+:root[data-theme="dark"]{--bg:#0f1f28;--card:#172b36;--ink:#e6f1f6;--mute:#93b0bf;--line:#2c4655;--sky:#5db4e0;--ok:#6fd39b;--okbg:#17392a;--bad:#f28b82;--badbg:#3f1f1d;--view:#20394a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Tajawal',Tahoma,'Segoe UI',sans-serif;line-height:1.75;font-size:16px}
+main{max-width:720px;margin:0 auto;padding:14px}
+header{background:var(--sky);color:#fff;border-radius:14px 14px 14px 0;padding:14px 16px;border-inline-start:8px solid var(--sun)}
+header small{opacity:.9}header h1{margin:2px 0 0;font-size:20px;font-weight:800}
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-top:14px;padding:14px}
+h2{margin:0 0 6px;font-size:17px;font-weight:800;display:flex;gap:8px;align-items:center}
+h2 b{background:var(--sky);color:#fff;border-radius:50%;width:26px;height:26px;display:inline-grid;place-items:center;font-size:14px;flex:none}
+p{margin:4px 0}
+.tray{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.chip{border:2px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:4px 10px;font:inherit;cursor:pointer;display:flex;gap:6px;align-items:center;min-height:44px}
+.chip[aria-pressed=true]{border-color:var(--sky);background:var(--sky);color:#fff}
+.chip.ok{border-color:var(--ok);background:var(--okbg);color:var(--ink)}
+.chip.bad{border-color:var(--bad);background:var(--badbg);color:var(--ink)}
+.tag{font-size:13px;color:var(--mute);margin-top:6px}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+svg{width:100%;height:auto;display:block;border-radius:10px;background:var(--view)}
+canvas{width:100%;height:170px;display:block;border:2px dashed var(--line);border-radius:10px;background:var(--view);touch-action:none}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+button.b{border:0;background:var(--green);color:#0d2200;font:inherit;font-weight:700;border-radius:10px;padding:8px 14px;cursor:pointer;min-height:44px}
+button.b.g{background:var(--line);color:var(--ink)}
+.note{background:var(--bg);border-inline-start:5px solid var(--green);border-radius:8px;padding:8px 10px;margin-top:8px}
+.ans{color:var(--ok);font-weight:700}
+.hs{cursor:pointer}.hs circle{fill:#f2c12e;fill-opacity:.85;stroke:#7a5a00;stroke-width:2}
+.st{margin-top:8px;padding:8px;border:1px solid var(--line);border-radius:10px}
+.st span{display:block;font-weight:700;margin-bottom:4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.two div{text-align:center;font-size:14px}
+details{border:1px solid var(--line);border-radius:10px;margin-top:8px;padding:6px 10px}
+summary{cursor:pointer;font-weight:700;min-height:32px}
+ul{margin:6px 0;padding-inline-start:22px}
+</style>
+</head>
+<body>
+<main>
+<header><small>أستكشف · نشاط استقصائي</small><h1>ما أجزاء البذرة؟</h1></header>
+
+<section>
+<h2><b>١</b>ألاحظ</h2>
+<p>كيف يبدو سطح بذرة الفاصولياء الجافة؟ أستخدم العدسة المكبّرة. ماذا أشاهد؟</p>
+<div class="tray"><button class="chip" id="lens" aria-pressed="false">🔍 استخدم العدسة المكبّرة</button></div>
+<div id="v1"></div>
+<div id="i1" class="note">اضغط على النقاط الصفراء لتعرف كل جزء (تظهر بعد تشغيل العدسة).</div>
+<ul id="o1"></ul>
+</section>
+
+<section>
+<h2><b>٢</b>أتوقّع</h2>
+<p>أرسم ما أتوقع أن يكون داخل البذرة الجافة. ارسم بإصبعك:</p>
+<canvas id="c1" aria-label="مساحة الرسم"></canvas>
+<div class="row"><button class="b g" data-clear="c1">امسح الرسم</button></div>
+<p>وأختار ما أتوقع وجوده داخلها:</p>
+<div class="tray" id="pr"></div>
+</section>
+
+<section>
+<h2><b>٣</b>أفتح البذرة الرطبة وألاحظها</h2>
+<p>أفتح البذرة الرطبة، ثم ألاحظها بالعدسة المكبّرة، وأرسم ما أشاهده.</p>
+<div class="row"><button class="b" id="open">افتح البذرة الرطبة</button></div>
+<div id="v3" style="margin-top:8px"></div>
+<div id="i3" class="note">افتح البذرة ثم اضغط على النقاط الصفراء.</div>
+<div class="tag" id="cnt3"></div>
+<p>أرسم ما أشاهده:</p>
+<canvas id="c2" aria-label="مساحة الرسم"></canvas>
+<div class="row"><button class="b g" data-clear="c2">امسح الرسم</button></div>
+</section>
+
+<section>
+<h2><b>٤</b>أقارن</h2>
+<p>أقارن بين الرسمين: فيم يتشابهان، وفيم يختلفان؟ صنّف كل عبارة:</p>
+<div id="cmp"></div>
+<div class="row"><button class="b" id="chk">تحقق من إجاباتي</button></div>
+<div id="res" class="note" style="display:none" aria-live="polite"></div>
+</section>
+
+<section>
+<h2><b>٥</b>أستكشف أكثر: ألاحظ</h2>
+<p>أفحص بذوراً أخرى رطبة وجافة وأقارن بينها.</p>
+<div class="tray" id="sd"></div>
+<div class="two"><div><div id="sdD"></div>جافة</div><div><div id="sdW"></div>رطبة</div></div>
+<div id="sdT" class="note"></div>
+</section>
+
+<section>
+<h2>الإجابات النموذجية</h2>
+<details><summary>ألاحظ: كيف يبدو سطح البذرة الجافة؟</summary>
+<p class="ans">سطحها صلب وجاف ومتجعّد وداكن، وفيه ندبة صغيرة فاتحة هي السرّة، وبجانبها فتحة صغيرة جداً هي النقير.</p></details>
+<details><summary>أتوقّع: ماذا يوجد داخل البذرة الجافة؟</summary>
+<p class="ans">أتوقع أن يكون داخلها فلقتان ونبتة صغيرة (الجنين) وغذاء مخزّن، محميّة بقشرة خارجية.</p></details>
+<details><summary>ألاحظ البذرة الرطبة</summary>
+<p class="ans">القصرة (غلاف البذرة) تحمي ما بداخلها. تحتها فلقتان تخزّنان الغذاء، وبينهما الجنين، وهو نبات صغير له جذير وريشة.</p></details>
+<details><summary>أقارن: فيم يتشابه الرسمان وفيم يختلفان؟</summary>
+<p class="ans">يتشابهان في أن كلتيهما بذرة فاصولياء لها قصرة خارجية وسرّة، وفي أن داخل كل منهما فلقتين وجنيناً. ويختلفان في أن الجافة صلبة متجعدة، والرطبة طرية منتفخة وملساء، ويسهل فتحها لرؤية الأجزاء الداخلية.</p></details>
+<details><summary>أستكشف أكثر: بذور أخرى</summary>
+<p class="ans">البذور الرطبة أكبر وأطرى من الجافة لأنها امتصت الماء، بينما البذور الجافة صلبة وأصغر.</p></details>
+</section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+const BEAN='M-70 0C-70-40-20-55 30-45C75-37 85-5 65 25C45 55-10 50-45 40C-65 32-70 15-70 0Z';
+const PATHS={bean:BEAN,fava:'M-75 0C-75-38 0-50 45-38C82-26 82 26 45 38C0 50-75 38-75 0Z',chick:'M-50 0C-50-45 30-55 52-25L72-30L62-6C70 30 20 52-20 45C-45 40-50 20-50 0Z',lentil:'M-45 0C-45-40 45-40 45 0C45 40-45 40-45 0Z'};
+const SEEDS={bean:['فاصولياء','#5a4c3d','#b7c97a','صلبة، سطحها متجعد وداكن','منتفخة وطرية، سطحها أملس وحجمها أكبر'],
+fava:['فول','#7a5c3a','#a9b96b','كبيرة مسطحة، قشرتها بنية صلبة','تنتفخ وتلين وتصبح قشرتها سهلة الفتح'],
+chick:['حمص','#c9a56a','#e3cf94','مستديرة صلبة لها نتوء صغير كالمنقار','تنتفخ وتلين وتصبح أكبر حجماً'],
+lentil:['عدس','#b5651d','#c98a4a','صغيرة مسطحة وصلبة','تنتفخ قليلاً وتلين']};
+function seed(k,wet){
+ const d=SEEDS[k],s=wet?1.25:.85,c=wet?d[2]:d[1];
+ let w='';
+ if(!wet)for(let i=0;i<5;i++)w+=`<path d="M${-40+i*18} -22Q${-30+i*18} 0 ${-38+i*18} 22" fill="none" stroke="rgba(255,255,255,.28)" stroke-width="2"/>`;
+ return `<svg viewBox="-100 -80 200 160" role="img" aria-label="بذرة ${d[0]}"><g transform="scale(${s})"><path d="${PATHS[k]}" fill="${c}" stroke="rgba(0,0,0,.35)" stroke-width="2"/>${w}<ellipse cx="0" cy="30" rx="9" ry="5" fill="#f3efe0"/></g></svg>`}
+/* الخطوة 1 */
+const st={lens:false,open:false,f1:new Set(),f3:new Set(),pr:new Set(),cmp:{},chk:false,sd:'bean'};
+const H1=[['coat',35,-15,'القصرة (غلاف البذرة)','قشرة صلبة جافة متجعدة تغطي البذرة وتحميها.'],['hil',0,30,'السرّة (الندبة)','الموضع الذي كانت البذرة مرتبطة فيه بالقرن.'],['mic',14,30,'النقير','فتحة صغيرة جداً يدخل منها الماء إلى البذرة.']];
+function v1(){
+ const z=st.lens?1.9:.8;
+ let h=`<svg viewBox="-100 -80 200 160" role="img" aria-label="بذرة فاصولياء جافة"><g transform="scale(${z})"><path d="${BEAN}" fill="#5a4c3d" stroke="rgba(0,0,0,.4)" stroke-width="1.5"/>`;
+ for(let i=0;i<5;i++)h+=`<path d="M${-45+i*20} -24Q${-35+i*20} 0 ${-43+i*20} 24" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>`;
+ h+=`<ellipse cx="0" cy="34" rx="9" ry="5" fill="#f3efe0" stroke="#2a2118"/><circle cx="14" cy="34" r="1.6" fill="#1b140d"/></g>`;
+ if(st.lens){h+=`<circle cx="0" cy="0" r="76" fill="none" stroke="#333" stroke-width="5"/>`;
+  H1.forEach(x=>{h+=`<g class="hs" data-h="${x[0]}" tabindex="0" role="button" aria-label="${x[3]}"><circle cx="${x[1]*z}" cy="${x[2]*z}" r="7"/></g>`})}
+ $('v1').innerHTML=h+'</svg>';
+ $('lens').setAttribute('aria-pressed',st.lens);
+ $('o1').innerHTML=[...st.f1].map(i=>`<li>${H1.find(x=>x[0]===i)[3]}</li>`).join('');}
+$('lens').onclick=()=>{st.lens=!st.lens;v1()};
+/* الخطوة 3 */
+const H3=[['coat',-64,-6,'القصرة','غلاف يحمي أجزاء البذرة الداخلية.'],['cot',-30,-4,'الفلقتان','تخزنان الغذاء الذي يحتاجه الجنين لينمو.'],['emb',0,10,'الجنين','نبات صغير له جذير (يصبح الجذر) وريشة (تصبح الساق والأوراق).']];
+function v3(){
+ const o=st.open?14:0;
+ let h='<svg viewBox="-100 -80 200 160" role="img" aria-label="بذرة رطبة">';
+ if(!st.open)h+=`<g transform="scale(1.25)"><path d="${BEAN}" fill="#b7c97a" stroke="rgba(0,0,0,.35)" stroke-width="2"/><ellipse cx="0" cy="30" rx="9" ry="5" fill="#f3efe0"/></g>`;
+ else{
+  h+=`<path d="M-88-6C-92-40-60-56-40-52C-58-30-62 4-58 20C-72 16-86 10-88-6Z" fill="#dfe8b5" fill-opacity=".8" stroke="#8a9a55"/>`;
+  h+=`<path d="M-8 -48C-45-50-70-25-62 10C-52 38-12 40-8 -10Z" transform="translate(${-o} 0)" fill="#d6e58a" stroke="#7d8f3a" stroke-width="2"/>`;
+  h+=`<path d="M8 -48C45-50 70-25 62 10C52 38 12 40 8 -10Z" transform="translate(${o} 0)" fill="#cfe07f" stroke="#7d8f3a" stroke-width="2"/>`;
+  h+=`<path d="M-3 -6Q-6 20 -14 30" stroke="#f0a24a" stroke-width="6" fill="none" stroke-linecap="round"/><path d="M0 -6L-4 -26M0 -6L6 -24" stroke="#3f9a3a" stroke-width="5" stroke-linecap="round"/>`;
+  H3.forEach(x=>{h+=`<g class="hs" data-h="${x[0]}" tabindex="0" role="button" aria-label="${x[3]}"><circle cx="${x[1]}" cy="${x[2]}" r="7"/></g>`});}
+ $('v3').innerHTML=h+'</svg>';
+ $('open').textContent=st.open?'أغلق البذرة':'افتح البذرة الرطبة';
+ $('cnt3').textContent=st.open?`اكتشفت ${st.f3.size} من ${H3.length} أجزاء.`+(st.f3.size===H3.length?' أحسنت!':''):'';}
+$('open').onclick=()=>{st.open=!st.open;v3()};
+document.addEventListener('click',e=>{
+ const h=e.target.closest('[data-h]');
+ if(h){const id=h.dataset.h,a=H1.find(x=>x[0]===id),b=H3.find(x=>x[0]===id);
+  if(st.open&&b&&h.closest('#v3')){st.f3.add(id);$('i3').innerHTML=`<b>${b[3]}:</b> ${b[4]}`;v3()}
+  else if(a&&h.closest('#v1')){st.f1.add(id);$('i1').innerHTML=`<b>${a[3]}:</b> ${a[4]}`;v1()}}
+ const p=e.target.closest('[data-p]');if(p){const i=p.dataset.p;st.pr.has(i)?st.pr.delete(i):st.pr.add(i);pr()}
+ const s=e.target.closest('[data-s]');if(s){st.sd=s.dataset.s;sd()}
+ const c=e.target.closest('[data-c]');if(c){st.cmp[c.dataset.i]=c.dataset.c;st.chk=false;$('res').style.display='none';cmp()}
+ const cl=e.target.closest('[data-clear]');if(cl){const cv=$(cl.dataset.clear);cv.getContext('2d').clearRect(0,0,cv.width,cv.height)}});
+document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.closest&&e.target.closest('.hs')){e.preventDefault();e.target.closest('.hs').dispatchEvent(new MouseEvent('click',{bubbles:true}))}});
+/* الخطوة 2 */
+const PR=['فلقتان','جنين (نبتة صغيرة)','غذاء مخزّن','ماء فقط','لا شيء (مصمتة)'];
+function pr(){$('pr').innerHTML=PR.map((t,i)=>`<button class="chip" data-p="${i}" aria-pressed="${st.pr.has(String(i))}">${t}</button>`).join('')}
+/* الرسم */
+function pad(id){
+ const cv=$(id),r=()=>{const b=cv.getBoundingClientRect();cv.width=b.width*2;cv.height=b.height*2};r();
+ const x=cv.getContext('2d');let dn=false;
+ const pt=e=>{const b=cv.getBoundingClientRect();return[(e.clientX-b.left)*cv.width/b.width,(e.clientY-b.top)*cv.height/b.height]};
+ cv.addEventListener('pointerdown',e=>{dn=true;cv.setPointerCapture(e.pointerId);const[a,b]=pt(e);x.strokeStyle=getComputedStyle(document.body).color;x.lineWidth=5;x.lineCap='round';x.beginPath();x.moveTo(a,b)});
+ cv.addEventListener('pointermove',e=>{if(!dn)return;const[a,b]=pt(e);x.lineTo(a,b);x.stroke()});
+ ['pointerup','pointercancel'].forEach(t=>cv.addEventListener(t,()=>dn=false));}
+/* الخطوة 4 */
+const CM=[['كلتاهما بذرة فاصولياء','s'],['لكل منهما قصرة (غلاف) خارجية','s'],['داخل كل منهما فلقتان وجنين','s'],['الجافة صلبة متجعدة والرطبة طرية ملساء','d'],['الرطبة منتفخة وأكبر حجماً','d'],['يسهل فتح الرطبة لرؤية أجزائها الداخلية','d']];
+function cmp(){$('cmp').innerHTML=CM.map((c,i)=>{const u=st.cmp[i];const ok=u===c[1];const m=st.chk&&u?(ok?' ✓':' ✗'):'';
+ return `<div class="st"><span>${c[0]}${m}</span><div class="tray" style="margin:0"><button class="chip ${st.chk&&u==='s'?(ok?'ok':'bad'):''}" data-i="${i}" data-c="s" aria-pressed="${u==='s'}">يتشابهان</button><button class="chip ${st.chk&&u==='d'?(ok?'ok':'bad'):''}" data-i="${i}" data-c="d" aria-pressed="${u==='d'}">يختلفان</button></div></div>`}).join('')}
+$('chk').onclick=()=>{const n=Object.keys(st.cmp).length;const r=$('res');r.style.display='block';
+ if(n<CM.length){r.textContent='صنّف كل العبارات أولاً.';return}
+ st.chk=true;const ok=CM.filter((c,i)=>st.cmp[i]===c[1]).length;cmp();
+ r.innerHTML=ok===CM.length?'<span class="ans">أحسنت! كل تصنيفاتك صحيحة.</span>':`أصبت في ${ok} من ${CM.length}. راجع العبارات المعلّمة بـ ✗.`};
+/* الاستكشاف */
+function sd(){
+ $('sd').innerHTML=Object.entries(SEEDS).map(([k,d])=>`<button class="chip" data-s="${k}" aria-pressed="${k===st.sd}">${d[0]}</button>`).join('');
+ const d=SEEDS[st.sd];$('sdD').innerHTML=seed(st.sd,false);$('sdW').innerHTML=seed(st.sd,true);
+ $('sdT').innerHTML=`<b>${d[0]} الجافة:</b> ${d[3]}.<br><b>${d[0]} الرطبة:</b> ${d[4]}.<br><span class="ans">المقارنة: البذور الرطبة أكبر وأطرى لأنها امتصت الماء.</span>`;}
+v1();v3();pr();cmp();sd();pad('c1');pad('c2');
+</script>
+</body>
+</html>
